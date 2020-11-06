@@ -12,15 +12,15 @@
     </parent>
 
     <groupId>com.nemo</groupId>
-    <artifactId>springcloud-dubbo-nacos</artifactId>
+    <artifactId>springboot-security-example</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>springcloud-dubbo-nacos</name>
-    <description>Demo project for SpringBoot Dubbo Nacos</description>
+    <name>springboot-security-example</name>
+    <description>Demo project for api message encrypt/decrypt based on springboot.</description>
 
     <modules>
-        <module>spring-cloud-dubbo-api</module>
-        <module>spring-cloud-dubbo-provider</module>
-        <module>spring-cloud-dubbo-consumer</module>
+        <module>springboot-security-example-api</module>
+        <module>springboot-security-example-provider</module>
+        <module>springboot-security-example-consumer</module>
     </modules>
 
     <properties>
