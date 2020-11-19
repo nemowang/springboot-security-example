@@ -28,6 +28,8 @@
         <spring-clould-alibaba.version>2.2.1.RELEASE</spring-clould-alibaba.version>
         <lombok.version>1.18.12</lombok.version>
         <hutool.version>5.3.1</hutool.version>
+        <redisson-spring-boot-start.version>3.13.1</redisson-spring-boot-start.version>
+        <dubbo.version>2.7.7</dubbo.version>
     </properties>
 
     <!--依赖管理-->
@@ -41,6 +43,11 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
@@ -49,6 +56,11 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson-spring-boot-start.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

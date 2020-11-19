@@ -9,6 +9,7 @@ import com.alibaba.nacos.api.common.Constants;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.nemo.api.service.TestService;
 import lombok.SneakyThrows;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import java.util.Properties;
 @RequestMapping("/test")
 public class TestController {
 
-    @Reference
+    @DubboReference
     private TestService testService;
 
     @GetMapping("sayHello")

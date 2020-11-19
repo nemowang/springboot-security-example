@@ -9,6 +9,7 @@ dubbo:
     subscribed-services: ${provider.application.name}
   consumer:
     check: false
+    retries: -1
 
 provider:
   application:
