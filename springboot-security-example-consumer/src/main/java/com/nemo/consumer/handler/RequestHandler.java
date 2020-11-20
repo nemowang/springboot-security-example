@@ -1,13 +1,20 @@
 package com.nemo.consumer.handler;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.nemo.api.enums.ResultEnum;
 import com.nemo.api.exception.BusinessException;
 import com.nemo.api.service.SecurityService;
+import com.nemo.common.util.RSAUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 
 /**
  * @Author Nemo
@@ -26,6 +33,12 @@ public class RequestHandler extends HttpServletRequestWrapper {
     /**
      * 处理入参
      * 解密
+     *
+     * 入参结构：
+     *      bizContent: AES加密后的接口入参密文
+     *      domain:     RSA加密后的AES密钥
+     *      appId:      appId用于区分系统
+     *
      * @param request           request
      * @param securityService   非对称加密公私钥管理服务
      * @param encryptSwitch     加解密开关
@@ -44,6 +57,53 @@ public class RequestHandler extends HttpServletRequestWrapper {
         String encData = StringUtils.EMPTY;
 
         try {
+            // 将body数据存储起来
+            String bodyStr = this.getBodyString(request);
+            log.info("RequestHandler 请求开始解析bodyStr:{}", bodyStr);
+            // step1. 读取请求数据
+            JSONObject jsonObject = JSONUtil.parseObj(bodyStr);
+
+            // 加密开关关闭时，直接返回
+            if ("false".equals(encryptSwitch)) {
+                body = encData.getBytes(Charset.defaultCharset());
+                return;
+            }
+            if (JSONUtil.isNull(jsonObject.get("bizContent"))) {
+                log.info("RequestHandler 参数不能为空");
+                throw new BusinessException(ResultEnum.PARAM_EMPTY);
+            }
+
+            encData = jsonObject.getStr("bizContent");
+            log.info("RequestHandler 加密串encData:{}", encData);
+
+            String domain = jsonObject.getStr("domain");
+            log.info("RequestHandler domain:{}", domain);
+            if (StringUtils.isEmpty(domain)) {
+                log.info("RequestHandler 解密失败，domain不能为空。");
+                throw new BusinessException(ResultEnum.DECRYPT_ERROR);
+            }
+
+            String appId = jsonObject.getStr("appId");
+            log.info("RequestHandler appId:{}", appId);
+            if (StringUtils.isEmpty(appId)) {
+                log.info("RequestHandler 解密失败，appId不能为空");
+                throw new BusinessException(ResultEnum.APPID_EMPTY);
+            }
+
+            // step2. 获取RSA私钥，解密AES密钥
+            // 获取RSA私钥
+            privateKey = securityService.getPrivateKey(appId);
+            log.info("RequestHandler 获取私钥privateKey:{}", privateKey);
+            // 解密AES密钥
+            String decryptDomainKey = RSAUtils.decrypt(domain, privateKey);
+
+            // step3. 使用AES密钥解密数据
+
+
+            // step4. 返回给body
+
+
+
 
         } catch (BusinessException e) {
             log.error("RequestHandler.RequestHandler decrypt error. privateKey:{}, encData:{}", privateKey, encData, e);
@@ -53,5 +113,34 @@ public class RequestHandler extends HttpServletRequestWrapper {
             log.error("RequestHandler error.", e);
             throw new BusinessException(ResultEnum.FAIL);
         }
+    }
+
+    /**
+     * 获取请求body
+     * @param request
+     * @return bodyStr
+     */
+    private String getBodyString(HttpServletRequest request) {
+        try {
+            return this.inputStream2String(request.getInputStream());
+        } catch (IOException e) {
+            log.error("RequestHandler.getBodyString error.", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 将inputStream里的数据读取出来并转换成字符串
+     * @param inputStream
+     * @return String
+     */
+    private String inputStream2String(InputStream inputStream) {
+        String content = null;
+        try {
+            content = IOUtils.toString(inputStream, "UTF-8");
+        } catch (IOException e) {
+            log.error("RequestHandler.inputStream2String error.", e);
+        }
+        return content;
     }
 }

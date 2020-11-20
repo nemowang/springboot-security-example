@@ -14,7 +14,10 @@ public enum ResultEnum {
     SUCCESS("000000", "成功"),
     FAIL("999999", "失败"),
 
-    REQUEST_ERROR("RE0001", "不支持GET请求"),
+    REQUEST_ERROR("RQE0001", "不支持GET请求"),
+    PARAM_EMPTY("PME0001", "参数不能为空"),
+    APPID_EMPTY("APE0001", "appId不能为空"),
+    DECRYPT_ERROR("JME0001", "decrypt失败"),
 
     ;
 

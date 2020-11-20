@@ -1,4 +1,4 @@
-package com.nemo.provider.util;
+package com.nemo.common.util;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +18,7 @@ import java.util.Map;
  * rsa 加解密相关
  */
 @Slf4j
-public class RSAEncrypt {
+public class RSAUtils {
     private static final String CHARSET = "UTF-8";
     //密钥算法
     private static final String ALGORITHM_RSA = "RSA";
@@ -208,21 +208,21 @@ public class RSAEncrypt {
     public static void main(String args[]) {
         try {
 //            String encrypted =
-//                    RSAEncrypt.encrypt("123456", "MIGdMA0GCSqGSIb3DQEBAQUAA4GLADCBhwKBgQDJ5QyA5mzIamuHQiudgfD2qpI3JgcVaCnEyFU2ml97FpAudV83tO2oIfCzbbN9TkZ1hkr06hMxfx6gt4Z3Kb/r1FngNVqlVkxqMzqB49MuE6QQ+LOdmjmSmNCwLxg9l/DRALnWd6pSGgTmuEYptITGbXWehWE6V1dIn/bzzwoqQwIBAw==");
+//                    RSAUtils.encrypt("123456", "MIGdMA0GCSqGSIb3DQEBAQUAA4GLADCBhwKBgQDJ5QyA5mzIamuHQiudgfD2qpI3JgcVaCnEyFU2ml97FpAudV83tO2oIfCzbbN9TkZ1hkr06hMxfx6gt4Z3Kb/r1FngNVqlVkxqMzqB49MuE6QQ+LOdmjmSmNCwLxg9l/DRALnWd6pSGgTmuEYptITGbXWehWE6V1dIn/bzzwoqQwIBAw==");
 //            System.out.println("encrypted: " + encrypted);
 //            encrypted = "Bc4fJppZL8hXdQlAYG01kj8r33B+VRksMn8AG0MdFyWePtrAP85LO+OIBxjjp2MtseQotwZx6SY6cs8sb3qbaxHvI9kpaJCzCyUaGhlNbMFiGITJ/10xtJT8TcJyqvYsiaJj7hGd4L4JsV+dDS0IUSIwRC6dqFx8grxsVhBhyNtO4SZRdpLkW5HyIOB9uNiSr+RNRpai2RWWWyscnaNIMtx1V90PvJ4KqPMRUTVbauueYBekkmDbmk6OQxA1sEUzhWO4a07BKyxABz2eJ60J9T8wIv+gaMK8QwFD6mrUo9maml3BNFl5T7ml5QAHX82GPbm3ggmxF/es3mZFxbyfkxmxy4MmoCZobSifk698o19GihdSQ0EzYpAoTY113CT3zHyPFtEFnVcGazFprUXu2lekiRFwfBn7HvF2rN9GVWbEch1aPdNE2HCVw38wqejdNZ5vE9wur4arjqjIz6iWrsuKDjBh/Y8/C7Snrk1EsiI1BFd434GyDnsz0QsnvQVm";
 //            String decrypted =
-//                    RSAEncrypt.decrypt(encrypted, "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAMnlDIDmbMhqa4dCK52B8PaqkjcmBxVoKcTIVTaaX3sWkC51Xze07agh8LNts31ORnWGSvTqEzF/HqC3hncpv+vUWeA1WqVWTGozOoHj0y4TpBD4s52aOZKY0LAvGD2X8NEAudZ3qlIaBOa4Rim0hMZtdZ6FYTpXV0if9vPPCipDAgEDAoGAIaYswCZndrxnQTWx75WoKRxts9ur2OaxoMwOM8RlPy5tXROP3p4nnAWoHeed6je2aOu3KNGt3ZUvxXPrvob1Uazxkh/UmecY2S64ZNm6hf/WgTvNq4wRdlFLk9TX8pHHNuEvZtCSDu1avU2Rpsird3FF5g6LiCGYCq2uCyDFnfsCQQDkEwLOMhPU5MoWZ/YCcFIvt9I3huYtCtLMpHKx7HeY3GytdpoFrSaPEmxvj9YF2aMsvoo0qAgXszDNf0sYP81xAkEA4p1wqCz2FtKJBIAuxwO35OU3WlqyJMX55GbGgBwWlGkbDCbTjpDR+tIKd0xq+qZWmROv+XQBdhPXwGNl8iio8wJBAJgMrIl2t+NDMWRFTqxK4XUlNs+vRB4HNzMYTHadpRCS8x5PEVkeGbS28vUKjq6RF3MpsXhwBWUiIIj/h2V/3ksCQQCXE6BwHflkjFtYVXSErSVDQ3o8PHbDLqaYRIRVaA8Nm2ddbze0YIv8jAb6MvH8buRmDR/7oqukDTqAQkP2xcX3AkA+Plw6FKiwGqPBOkF25OYZyWxGTSnb3m0Zdb2MSBVUXbpB7ysao5CKX0Jdtpvn+gAOU+SBjOMAII0q8lj3q11N");
+//                    RSAUtils.decrypt(encrypted, "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAMnlDIDmbMhqa4dCK52B8PaqkjcmBxVoKcTIVTaaX3sWkC51Xze07agh8LNts31ORnWGSvTqEzF/HqC3hncpv+vUWeA1WqVWTGozOoHj0y4TpBD4s52aOZKY0LAvGD2X8NEAudZ3qlIaBOa4Rim0hMZtdZ6FYTpXV0if9vPPCipDAgEDAoGAIaYswCZndrxnQTWx75WoKRxts9ur2OaxoMwOM8RlPy5tXROP3p4nnAWoHeed6je2aOu3KNGt3ZUvxXPrvob1Uazxkh/UmecY2S64ZNm6hf/WgTvNq4wRdlFLk9TX8pHHNuEvZtCSDu1avU2Rpsird3FF5g6LiCGYCq2uCyDFnfsCQQDkEwLOMhPU5MoWZ/YCcFIvt9I3huYtCtLMpHKx7HeY3GytdpoFrSaPEmxvj9YF2aMsvoo0qAgXszDNf0sYP81xAkEA4p1wqCz2FtKJBIAuxwO35OU3WlqyJMX55GbGgBwWlGkbDCbTjpDR+tIKd0xq+qZWmROv+XQBdhPXwGNl8iio8wJBAJgMrIl2t+NDMWRFTqxK4XUlNs+vRB4HNzMYTHadpRCS8x5PEVkeGbS28vUKjq6RF3MpsXhwBWUiIIj/h2V/3ksCQQCXE6BwHflkjFtYVXSErSVDQ3o8PHbDLqaYRIRVaA8Nm2ddbze0YIv8jAb6MvH8buRmDR/7oqukDTqAQkP2xcX3AkA+Plw6FKiwGqPBOkF25OYZyWxGTSnb3m0Zdb2MSBVUXbpB7ysao5CKX0Jdtpvn+gAOU+SBjOMAII0q8lj3q11N");
 //            System.out.println("decrypted: " + decrypted);
             genKeyPair(1024);
 //            Map<Integer, String> keyMap = genKeyPair(1024);
 //            String encrypted =
-//                    RSAEncrypt.encrypt("123456", keyMap.get(0));
+//                    RSAUtils.encrypt("123456", keyMap.get(0));
 //
 //            System.out.println("encrypted: " + encrypted);
 ////            encrypted = "Bc4fJppZL8hXdQlAYG01kj8r33B+VRksMn8AG0MdFyWePtrAP85LO+OIBxjjp2MtseQotwZx6SY6cs8sb3qbaxHvI9kpaJCzCyUaGhlNbMFiGITJ/10xtJT8TcJyqvYsiaJj7hGd4L4JsV+dDS0IUSIwRC6dqFx8grxsVhBhyNtO4SZRdpLkW5HyIOB9uNiSr+RNRpai2RWWWyscnaNIMtx1V90PvJ4KqPMRUTVbauueYBekkmDbmk6OQxA1sEUzhWO4a07BKyxABz2eJ60J9T8wIv+gaMK8QwFD6mrUo9maml3BNFl5T7ml5QAHX82GPbm3ggmxF/es3mZFxbyfkxmxy4MmoCZobSifk698o19GihdSQ0EzYpAoTY113CT3zHyPFtEFnVcGazFprUXu2lekiRFwfBn7HvF2rN9GVWbEch1aPdNE2HCVw38wqejdNZ5vE9wur4arjqjIz6iWrsuKDjBh/Y8/C7Snrk1EsiI1BFd434GyDnsz0QsnvQVm";
 //            String decrypted =
-//                    RSAEncrypt.decrypt(encrypted, keyMap.get(1));
+//                    RSAUtils.decrypt(encrypted, keyMap.get(1));
 //            System.out.println("decrypted: " + decrypted);
         } catch (Exception e) {
             e.printStackTrace();

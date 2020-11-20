@@ -4,7 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.nemo.api.service.SecurityService;
 import com.nemo.provider.constant.RedisKeyConstant;
 import com.nemo.provider.domain.dto.RsaKeyDTO;
-import com.nemo.provider.util.RSAEncrypt;
+import com.nemo.common.util.RSAUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -42,7 +42,7 @@ public class SecurityServiceImpl implements SecurityService {
             RBucket<Object> bucket = redissonClient.getBucket(redisKey);
             if (null == bucket.get() || StringUtils.isEmpty(bucket.get().toString())) {
                 // 如果redis中不存在，则生成密钥对，并保存到redis中
-                Map<Integer, String> map = RSAEncrypt.genKeyPair(1024);
+                Map<Integer, String> map = RSAUtils.genKeyPair(1024);
                 RsaKeyDTO rsaKeyDTO = new RsaKeyDTO();
                 rsaKeyDTO.setPublicKey(map.get(0));
                 rsaKeyDTO.setPrivateKey(map.get(1));
@@ -70,7 +70,7 @@ public class SecurityServiceImpl implements SecurityService {
             RBucket<Object> bucket = redissonClient.getBucket(redisKey);
             if (null == bucket.get() || StringUtils.isEmpty(bucket.get().toString())) {
                 // 如果redis中不存在，则生成密钥对，并保存到redis中
-                Map<Integer, String> map = RSAEncrypt.genKeyPair(1024);
+                Map<Integer, String> map = RSAUtils.genKeyPair(1024);
                 RsaKeyDTO rsaKeyDTO = new RsaKeyDTO();
                 rsaKeyDTO.setPublicKey(map.get(0));
                 rsaKeyDTO.setPrivateKey(map.get(1));

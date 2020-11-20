@@ -21,6 +21,7 @@
         <module>springboot-security-example-api</module>
         <module>springboot-security-example-provider</module>
         <module>springboot-security-example-consumer</module>
+        <module>springboot-security-example-common</module>
     </modules>
 
     <properties>
@@ -30,6 +31,7 @@
         <hutool.version>5.3.1</hutool.version>
         <redisson-spring-boot-start.version>3.13.1</redisson-spring-boot-start.version>
         <dubbo.version>2.7.7</dubbo.version>
+        <commons-io.version>2.6</commons-io.version>
     </properties>
 
     <!--依赖管理-->
@@ -61,6 +63,11 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson-spring-boot-start.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
