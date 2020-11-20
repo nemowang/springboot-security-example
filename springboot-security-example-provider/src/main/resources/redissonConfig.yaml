@@ -1,6 +1,5 @@
 singleServerConfig:
   idleConnectionTimeout: 10000
-  pingTimeout: 1000
   connectTimeout: 10000
   timeout: 3000
   retryAttempts: 3
@@ -16,5 +15,5 @@ singleServerConfig:
   database: 1
 threads: 0
 nettyThreads: 0
-codec: !<org.redisson.codec.StringCodec> {}
+codec: !<org.redisson.client.codec.StringCodec> {}
 transportMode: NIO

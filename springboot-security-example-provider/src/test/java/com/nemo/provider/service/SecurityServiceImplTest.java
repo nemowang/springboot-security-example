@@ -27,4 +27,10 @@ public class SecurityServiceImplTest {
         String publicKey = securityService.getPublicKey("200001");
         log.info("securityService getPublicKey publicKey={}", publicKey);
     }
+
+    @Test
+    public void getPrivateKey() {
+        String privateKey = securityService.getPrivateKey("200001");
+        log.info("securityService getPrivateKey privateKey={}", privateKey);
+    }
 }

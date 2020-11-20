@@ -20,7 +20,6 @@ public class RedissonConfig {
         try {
             ClassPathResource classPathResource = new ClassPathResource("redissonConfig.yaml");
             config = Config.fromYAML(classPathResource.getFile());
-            // config.useSingleServer().setPassword("123456");
         } catch (IOException e) {
             log.error("RedissonConfig redisson error.", e);
             return null;
