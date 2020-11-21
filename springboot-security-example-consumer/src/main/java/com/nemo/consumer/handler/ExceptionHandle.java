@@ -3,7 +3,7 @@ package com.nemo.consumer.handler;
 import cn.hutool.json.JSONUtil;
 import com.nemo.api.enums.ResultEnum;
 import com.nemo.api.exception.BusinessException;
-import com.nemo.consumer.domain.ResultVO;
+import com.nemo.consumer.domain.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;

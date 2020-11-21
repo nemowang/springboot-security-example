@@ -1,5 +1,6 @@
 package com.nemo.consumer.handler;
 
+import cn.hutool.core.text.UnicodeUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.nemo.api.enums.ResultEnum;
@@ -10,10 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
+import javax.servlet.ReadListener;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
 
 /**
@@ -96,15 +98,24 @@ public class RequestHandler extends HttpServletRequestWrapper {
             log.info("RequestHandler 获取私钥privateKey:{}", privateKey);
             // 解密AES密钥
             String decryptDomainKey = RSAUtils.decrypt(domain, privateKey);
+            log.info("RequestHandler domainkey:{}, encData:{}", decryptDomainKey, encData);
 
             // step3. 使用AES密钥解密数据
-
+            // TODO AES使用decryptDomainKey解密encData获取bizContent中的数据
+            String decryptUnicode = StringUtils.EMPTY;
+            log.info("RequestHandler 解析的得到的数据为:{}", decryptUnicode);
+            String decrypt = UnicodeUtil.toString(decryptUnicode);
+            log.info("RequestHandler decryptUnicode转String得到的数据为:{}", decrypt);
 
             // step4. 返回给body
-
-
-
-
+            JSONObject result = new JSONObject();
+            if (StringUtils.isNotBlank(decrypt)) {
+                result = JSONUtil.parseObj(decrypt);
+            }
+            // 把domainkey放到参数中，返回数据加密时使用
+            result.put("domainKey", decryptDomainKey);
+            log.info("RequestHandler resultJson={}", JSONUtil.toJsonStr(result));
+            body = JSONUtil.toJsonStr(result).getBytes();
         } catch (BusinessException e) {
             log.error("RequestHandler.RequestHandler decrypt error. privateKey:{}, encData:{}", privateKey, encData, e);
             // 继续抛出异常，让filter去处理
@@ -142,5 +153,37 @@ public class RequestHandler extends HttpServletRequestWrapper {
             log.error("RequestHandler.inputStream2String error.", e);
         }
         return content;
+    }
+
+    @Override
+    public BufferedReader getReader() throws IOException {
+        return new BufferedReader(new InputStreamReader(getInputStream()));
+    }
+
+    @Override
+    public ServletInputStream getInputStream() throws IOException {
+
+        final ByteArrayInputStream inputStream = new ByteArrayInputStream(body);
+
+        return new ServletInputStream() {
+            @Override
+            public int read() throws IOException {
+                return inputStream.read();
+            }
+
+            @Override
+            public boolean isFinished() {
+                return false;
+            }
+
+            @Override
+            public boolean isReady() {
+                return false;
+            }
+
+            @Override
+            public void setReadListener(ReadListener readListener) {
+            }
+        };
     }
 }

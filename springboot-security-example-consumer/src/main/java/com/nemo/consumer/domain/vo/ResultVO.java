@@ -1,4 +1,4 @@
-package com.nemo.consumer.domain;
+package com.nemo.consumer.domain.vo;
 
 import com.nemo.api.enums.ResultEnum;
 import lombok.AllArgsConstructor;
