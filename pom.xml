@@ -32,6 +32,7 @@
         <redisson-spring-boot-start.version>3.13.1</redisson-spring-boot-start.version>
         <dubbo.version>2.7.7</dubbo.version>
         <commons-io.version>2.6</commons-io.version>
+        <commons-codec.version>1.10</commons-codec.version>
     </properties>
 
     <!--依赖管理-->
@@ -68,6 +69,11 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

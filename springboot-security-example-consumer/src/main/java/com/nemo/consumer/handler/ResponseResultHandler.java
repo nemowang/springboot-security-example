@@ -2,9 +2,9 @@ package com.nemo.consumer.handler;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.nemo.common.util.AESUtil;
 import com.nemo.consumer.domain.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -46,7 +46,7 @@ public class ResponseResultHandler implements ResponseBodyAdvice {
                 dataObj.remove("domainKey");
 
                 // TODO AES加密
-                String encData = StringUtils.EMPTY;
+                String encData = AESUtil.encrypt(JSONUtil.toJsonStr(dataObj), domainKey);
                 log.info("encData:{}", encData);
                 resultVO.setData(encData);
                 long endTime = System.currentTimeMillis();

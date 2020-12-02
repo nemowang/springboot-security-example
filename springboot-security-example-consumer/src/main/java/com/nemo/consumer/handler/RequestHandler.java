@@ -6,6 +6,7 @@ import cn.hutool.json.JSONUtil;
 import com.nemo.api.enums.ResultEnum;
 import com.nemo.api.exception.BusinessException;
 import com.nemo.api.service.SecurityService;
+import com.nemo.common.util.AESUtil;
 import com.nemo.common.util.RSAUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -101,8 +102,8 @@ public class RequestHandler extends HttpServletRequestWrapper {
             log.info("RequestHandler domainkey:{}, encData:{}", decryptDomainKey, encData);
 
             // step3. 使用AES密钥解密数据
-            // TODO AES使用decryptDomainKey解密encData获取bizContent中的数据
-            String decryptUnicode = StringUtils.EMPTY;
+            // AES使用decryptDomainKey解密encData获取bizContent中的数据
+            String decryptUnicode = AESUtil.decrypt(encData, decryptDomainKey);
             log.info("RequestHandler 解析的得到的数据为:{}", decryptUnicode);
             String decrypt = UnicodeUtil.toString(decryptUnicode);
             log.info("RequestHandler decryptUnicode转String得到的数据为:{}", decrypt);
