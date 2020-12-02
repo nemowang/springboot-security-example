@@ -45,7 +45,7 @@ public class ResponseResultHandler implements ResponseBodyAdvice {
                 JSONObject dataObj = JSONUtil.parseObj(data);
                 dataObj.remove("domainKey");
 
-                // TODO AES加密
+                // AES加密
                 String encData = AESUtil.encrypt(JSONUtil.toJsonStr(dataObj), domainKey);
                 log.info("encData:{}", encData);
                 resultVO.setData(encData);
