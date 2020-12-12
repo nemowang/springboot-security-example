@@ -1,5 +1,6 @@
 package com.nemo.consumer.domain.vo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,5 +14,6 @@ import java.io.Serializable;
 public class BaseRespVO implements Serializable {
     private static final long serialVersionUID = -6057897847528509223L;
 
+    @ApiModelProperty(value = "AES密钥")
     private String domainKey;
 }

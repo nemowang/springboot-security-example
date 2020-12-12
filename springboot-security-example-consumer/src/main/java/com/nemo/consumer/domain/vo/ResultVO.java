@@ -1,6 +1,7 @@
 package com.nemo.consumer.domain.vo;
 
 import com.nemo.api.enums.ResultEnum;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,16 +22,19 @@ public class ResultVO<T> implements Serializable {
     /**
      * 状态码
      */
+    @ApiModelProperty(value = "状态码")
     private String code;
 
     /**
      * 描述
      */
+    @ApiModelProperty(value = "描述")
     private String msg;
 
     /**
      * 数据
      */
+    @ApiModelProperty(value = "数据")
     private T data;
 
     public static ResultVO success() {

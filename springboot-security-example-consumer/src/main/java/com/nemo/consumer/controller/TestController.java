@@ -10,7 +10,6 @@ import com.alibaba.nacos.api.config.ConfigService;
 import com.nemo.api.service.TestService;
 import lombok.SneakyThrows;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +18,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * @Author Nemo
+ * @Description 连通性测试接口
+ * @Date 2020/11/01 12:39
+ */
 @RestController
 @RequestMapping("/test")
 public class TestController {

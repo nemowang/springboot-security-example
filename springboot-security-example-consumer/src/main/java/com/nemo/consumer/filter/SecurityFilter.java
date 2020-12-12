@@ -47,7 +47,7 @@ public class SecurityFilter implements Filter {
             // 处理异常 因为filter中的异常无法抛出，因此将异常信息转发到专门处理filter异常的controller中进行接口返回
             log.info("SecurityFilter doFilter ERROR.", e);
             req.setAttribute("errorMessage", e.getMessage());
-            req .getRequestDispatcher("/filter/filterException").forward(req, resp);
+            req.getRequestDispatcher("/filter/filterException").forward(req, resp);
         }
     }
 

@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 /**
  * @Author Nemo
- * @Description
+ * @Description 加解密测试接口Controller
  * @Date 2020/11/21 11:45
  */
 @Slf4j
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SecurityTestController {
 
     @PostMapping("hello")
-    public ResultVO<HelloRespVO> hello(@RequestBody HelloReqVO reqVO) {
+    public ResultVO<HelloRespVO> hello(@RequestBody @Valid HelloReqVO reqVO) {
         log.info("SecurityTestController hello reqVO={}", reqVO);
         String content = "hello, " + reqVO.getName();
         HelloRespVO respVO = new HelloRespVO();

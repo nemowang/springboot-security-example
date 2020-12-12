@@ -30,8 +30,7 @@ public class ExceptionHandle {
      */
     @ExceptionHandler(BusinessException.class)
     public ResultVO handleBusinessException(BusinessException e) {
-        log.info("BusinessExcepion{}", e);
-        log.info("BusinessExceptionMessage{}", e.getMsg());
+        log.error("BusinessExcepion ", e);
         return ResultVO.error(e.getMessage());
     }
 
