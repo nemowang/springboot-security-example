@@ -51,4 +51,9 @@ public class AESUtilTest {
         String decrypt = AESUtil.decrypt(encrypt, key);
         System.out.println("decrypt=" + decrypt);
     }
+
+    @Test
+    public void generateKey() {
+        System.out.println("key=" + AESUtil.generateKey());
+    }
 }

@@ -2,6 +2,8 @@ package com.nemo.consumer.controller;
 
 import com.nemo.api.service.SecurityService;
 import com.nemo.consumer.domain.vo.ResultVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,17 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Author Nemo
- * @Description
+ * @Description 加解密相关 获取密钥接口
  * @Date 2020/12/12 12:39
  */
 @Slf4j
 @RestController
-@RequestMapping("/securityKeys")
+@RequestMapping("/keys")
+@Api(value = "加解密相关 获取密钥接口")
 public class SecurityController {
 
     @DubboReference
     private SecurityService securityService;
 
+    @ApiOperation(value = "getPublicKey 获取RSA公钥")
     @PostMapping("getPublicKey")
     public ResultVO getPublicKey(@RequestParam String appId) {
         log.info("Enter SecurityController.getPublicKey appId={}", appId);
