@@ -42,4 +42,12 @@ AES是常用的对称加密算法，RSA是常用的非对称加密算法.<br>
 4. [ResponseResultHandler](springboot-security-example-consumer/src/main/java/com/nemo/consumer/handler/ResponseResultHandler.java "处理返回数据")拦截到返回数据，使用domainKey对data进行加密，再将加密后的响应报文返回给接口调用方
 至此，接口数据的加解密完成。
 
-## Demo
+## 接口调用Demo
+位于consumer的[CipherTest.java](springboot-security-example-consumer/src/test/java/com/nemo/consumer/CipherTest.java "API加解密完整调用demo")展示了一次完整的接口调用，包括：
+1. 原始请求报文AES加密；
+2. 对AES密钥加密；
+3. 构造加密请求报文；
+4. 调用接口获取返回报文；
+5. 对返回报文进行AES解密 <br>
+
+等主要步骤。
