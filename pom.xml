@@ -30,7 +30,7 @@
         <lombok.version>1.18.12</lombok.version>
         <hutool.version>5.3.1</hutool.version>
         <redisson-spring-boot-start.version>3.13.1</redisson-spring-boot-start.version>
-        <dubbo.version>2.7.7</dubbo.version>
+        <dubbo.version>2.7.13</dubbo.version>
         <commons-io.version>2.7</commons-io.version>
         <commons-codec.version>1.10</commons-codec.version>
         <swagger.version>3.0.0</swagger.version>
